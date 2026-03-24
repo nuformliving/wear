@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPC Browser - Loading...</title>
+    <link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Preload critical CSS for instant page swap -->
+    <link rel="preload" href="media/css/index.css" as="style">
+    <link rel="preload" href="media/css/modal.css" as="style">
+    <link rel="preload" href="media/css/stmicons.css" as="style">
+    
+    <!-- Preload next page critical assets for instant transition -->
+    <link rel="preload" href="media/css/css2.css" as="style">
+    <link rel="preload" href="media/css/css2-1.css" as="style">
+    <link rel="preload" href="media/css/css2-2.css" as="style">
+    <link rel="preload" href="media/css/css2-3.css" as="style">
+    <link rel="preload" href="media/css/css2-4.css" as="style">
+    <link rel="preload" href="media/js/app.js" as="script">
+    
+    <!-- Actually load them into the page so they're cached -->
+    <link rel="stylesheet" href="media/css/css2.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="media/css/css2-1.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="media/css/css2-2.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="media/css/css2-3.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="media/css/css2-4.css" media="print" onload="this.media='all'">
+    
+    <script src="media/js/jquery.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(58, 150, 255, 0.15), transparent);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 200, 150, 0.1), transparent);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
+        .crypto-ticker {
+            background: linear-gradient(90deg, #1D2330 0%, #262B38 100%);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 12px 0;
+            border-bottom: 1px solid #282E3B;
+            position: relative;
+        }
+        
+        .ticker-wrap {
+            display: flex;
+            width: 100%;
+        }
+        
+        .ticker-content {
+            display: flex;
+            flex-wrap: nowrap;
+            animation: scroll-left 40s linear infinite;
+        }
+        
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            margin-right: 50px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        
+        .ticker-symbol {
+            color: #3a96ff;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .ticker-image img {
+            width: 20px;
+            height: 20px;
+            margin-right: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .ticker-price {
+            color: #00C896;
+            margin-right: 8px;
+        }
+        
+        .ticker-change-up {
+            color: #00C896;
+        }
+        
+        .ticker-change-down {
+            color: #FF4757;
+        }
+        
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Main Container */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            padding-top: 80px;
+        }
+        
+        /* Logo Section */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+        
+        .logo-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #3a96ff 0%, #2575d8 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 32px rgba(58, 150, 255, 0.25);
+            position: relative;
+        }
+        
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #3a96ff, #00c896);
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(8px);
+        }
+        
+        .logo-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+        
+        .brand-name {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+        
+        .brand-name .rpc-text {
+            background: linear-gradient(135deg, #3a96ff 0%, #00c896 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+        
+        .brand-tagline {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+        
+        /* Loading Card */
+        .loading-card {
+            background: rgba(26, 32, 44, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+        
+        .loading-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .loading-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        .loading-percentage {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3a96ff, #00c896);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            position: relative;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3a96ff, #00c896, #3a96ff);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            animation: shimmer 2s linear infinite;
+            box-shadow: 0 0 20px rgba(58, 150, 255, 0.5);
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Status Messages */
+        .status-container {
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 10px;
+        }
+        
+        /* Custom scrollbar for status */
+        .status-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .status-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .status-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #3a96ff, #00c896);
+            border-radius: 10px;
+        }
+        
+        .status-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #4aa6ff, #00d8a6);
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        
+        .status-icon {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(58, 150, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #3a96ff;
+            animation: spin 1s linear infinite;
+        }
+        
+        .status-icon.complete {
+            border: none;
+            background: #00c896;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: none;
+        }
+        
+        .status-icon.complete::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Footer Note */
+        .footer-note {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            animation: fadeIn 0.8s ease-out 0.6s backwards;
+        }
+        
+        /* Floating Crypto Icons */
+        .crypto-float {
+            position: fixed;
+            opacity: 0.1;
+            animation: floatCrypto 20s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .crypto-float:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            font-size: 60px;
+            animation-delay: 0s;
+        }
+        
+        .crypto-float:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            font-size: 80px;
+            animation-delay: 5s;
+        }
+        
+        .crypto-float:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            font-size: 50px;
+            animation-delay: 10s;
+        }
+        
+        @keyframes floatCrypto {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* WOW Exit Transition */
+        body.page-transition {
+            animation: pageExit 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        @keyframes pageExit {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+                filter: blur(0px);
+            }
+            50% {
+                transform: scale(1.1);
+                filter: blur(5px);
+            }
+            100% {
+                transform: scale(0) rotate(180deg);
+                opacity: 0;
+                filter: blur(20px);
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .brand-name {
+                font-size: 28px;
+            }
+            
+            .brand-tagline {
+                font-size: 13px;
+            }
+            
+            .main-container {
+                padding: 20px 15px;
+                padding-top: 70px;
+                padding-bottom: 30px;
+            }
+            
+            .logo-section {
+                margin-bottom: 40px;
+            }
+            
+            .loading-card {
+                padding: 25px 18px;
+                margin-bottom: 10px;
+            }
+            
+            .logo-icon {
+                width: 56px;
+                height: 56px;
+            }
+            
+            .logo-icon svg {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .ticker-item {
+                font-size: 12px;
+            }
+            
+            .footer-note {
+                font-size: 11px;
+                margin-top: 20px;
+                margin-bottom: 15px;
+                padding: 0 10px;
+                line-height: 1.4;
+            }
+            
+            .status-container {
+                max-height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Crypto Ticker -->
+    <div class="crypto-ticker">
+        <div class="ticker-wrap">
+                <div class="ticker-content"><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/rx5wufxh.png" alt="BTC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BTC</span>
+                            <span class="ticker-price">$86,191.93</span>
+                            <span class="ticker-change-up">+2.28%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/6uz3nomy.png" alt="ETH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">ETH</span>
+                            <span class="ticker-price">$2,825.05</span>
+                            <span class="ticker-change-up">+2.86%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/lnkbsqlv.png" alt="USDT" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">USDT</span>
+                            <span class="ticker-price">$1.00</span>
+                            <span class="ticker-change-up">+0.01%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/a25ldwo6.png" alt="XRP" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">XRP</span>
+                            <span class="ticker-price">$2.05</span>
+                            <span class="ticker-change-up">+5.67%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/bpabfako.png" alt="BNB" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BNB</span>
+                            <span class="ticker-price">$845.13</span>
+                            <span class="ticker-change-up">+2.19%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/ucek74xs.png" alt="USDC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">USDC</span>
+                            <span class="ticker-price">$1.00</span>
+                            <span class="ticker-change-up">+0.03%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/6uu7dhud.png" alt="SOL" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">SOL</span>
+                            <span class="ticker-price">$130.18</span>
+                            <span class="ticker-change-up">+3.20%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/f7xkii73.png" alt="TRX" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">TRX</span>
+                            <span class="ticker-price">$0.27</span>
+                            <span class="ticker-change-down">-5.56%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/dpkrokkk.png" alt="STETH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">STETH</span>
+                            <span class="ticker-price">$2,825.07</span>
+                            <span class="ticker-change-up">+3.14%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/rxfgg6pj.png" alt="DOGE" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">DOGE</span>
+                            <span class="ticker-price">$0.14</span>
+                            <span class="ticker-change-up">+4.44%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/iugsd3sn.png" alt="ADA" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">ADA</span>
+                            <span class="ticker-price">$0.41</span>
+                            <span class="ticker-change-down">-0.41%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/xd3xuuop.png" alt="WBT" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">WBT</span>
+                            <span class="ticker-price">$57.04</span>
+                            <span class="ticker-change-up">+1.19%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/2kgfdjbq.png" alt="WBTC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">WBTC</span>
+                            <span class="ticker-price">$86,073.78</span>
+                            <span class="ticker-change-down">-0.42%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/5iy7phoy.png" alt="BCH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BCH</span>
+                            <span class="ticker-price">$544.47</span>
+                            <span class="ticker-change-up">+3.50%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/ewzf4kb3.png" alt="WBETH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">WBETH</span>
+                            <span class="ticker-price">$3,059.43</span>
+                            <span class="ticker-change-up">+0.01%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/ojxpsx7v.png" alt="BOB" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BOB</span>
+                            <span class="ticker-price">$0.01</span>
+                            <span class="ticker-change-up">+0.95%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/nwpv5qjy.png" alt="ZEC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">ZEC</span>
+                            <span class="ticker-price">$580.94</span>
+                            <span class="ticker-change-up">+15.19%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/vwkvcy6s.png" alt="USDS" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">USDS</span>
+                            <span class="ticker-price">$1.00</span>
+                            <span class="ticker-change-down">-0.13%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/3g555bt2.png" alt="LEO" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">LEO</span>
+                            <span class="ticker-price">$9.53</span>
+                            <span class="ticker-change-up">+0.38%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/gsuucp3m.png" alt="LINK" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">LINK</span>
+                            <span class="ticker-price">$12.49</span>
+                            <span class="ticker-change-up">+6.03%</span>
+                         </span></div>
+                <div class="ticker-content" aria-hidden="true"><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/rx5wufxh.png" alt="BTC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BTC</span>
+                            <span class="ticker-price">$86,191.93</span>
+                            <span class="ticker-change-up">+2.28%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/6uz3nomy.png" alt="ETH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">ETH</span>
+                            <span class="ticker-price">$2,825.05</span>
+                            <span class="ticker-change-up">+2.86%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/lnkbsqlv.png" alt="USDT" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">USDT</span>
+                            <span class="ticker-price">$1.00</span>
+                            <span class="ticker-change-up">+0.01%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/a25ldwo6.png" alt="XRP" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">XRP</span>
+                            <span class="ticker-price">$2.05</span>
+                            <span class="ticker-change-up">+5.67%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/bpabfako.png" alt="BNB" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BNB</span>
+                            <span class="ticker-price">$845.13</span>
+                            <span class="ticker-change-up">+2.19%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/ucek74xs.png" alt="USDC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">USDC</span>
+                            <span class="ticker-price">$1.00</span>
+                            <span class="ticker-change-up">+0.03%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/6uu7dhud.png" alt="SOL" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">SOL</span>
+                            <span class="ticker-price">$130.18</span>
+                            <span class="ticker-change-up">+3.20%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/f7xkii73.png" alt="TRX" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">TRX</span>
+                            <span class="ticker-price">$0.27</span>
+                            <span class="ticker-change-down">-5.56%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/dpkrokkk.png" alt="STETH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">STETH</span>
+                            <span class="ticker-price">$2,825.07</span>
+                            <span class="ticker-change-up">+3.14%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/rxfgg6pj.png" alt="DOGE" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">DOGE</span>
+                            <span class="ticker-price">$0.14</span>
+                            <span class="ticker-change-up">+4.44%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/iugsd3sn.png" alt="ADA" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">ADA</span>
+                            <span class="ticker-price">$0.41</span>
+                            <span class="ticker-change-down">-0.41%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/xd3xuuop.png" alt="WBT" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">WBT</span>
+                            <span class="ticker-price">$57.04</span>
+                            <span class="ticker-change-up">+1.19%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/2kgfdjbq.png" alt="WBTC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">WBTC</span>
+                            <span class="ticker-price">$86,073.78</span>
+                            <span class="ticker-change-down">-0.42%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/5iy7phoy.png" alt="BCH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BCH</span>
+                            <span class="ticker-price">$544.47</span>
+                            <span class="ticker-change-up">+3.50%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/ewzf4kb3.png" alt="WBETH" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">WBETH</span>
+                            <span class="ticker-price">$3,059.43</span>
+                            <span class="ticker-change-up">+0.01%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/ojxpsx7v.png" alt="BOB" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">BOB</span>
+                            <span class="ticker-price">$0.01</span>
+                            <span class="ticker-change-up">+0.95%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/nwpv5qjy.png" alt="ZEC" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">ZEC</span>
+                            <span class="ticker-price">$580.94</span>
+                            <span class="ticker-change-up">+15.19%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/vwkvcy6s.png" alt="USDS" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">USDS</span>
+                            <span class="ticker-price">$1.00</span>
+                            <span class="ticker-change-down">-0.13%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/3g555bt2.png" alt="LEO" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">LEO</span>
+                            <span class="ticker-price">$9.53</span>
+                            <span class="ticker-change-up">+0.38%</span>
+                         </span><span class="ticker-item">
+                            <span class="ticker-image"><img src="https://market-assets.fsn1.your-objectstorage.com/crypto/gsuucp3m.png" alt="LINK" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"></span>
+                            <span class="ticker-symbol">LINK</span>
+                            <span class="ticker-price">$12.49</span>
+                            <span class="ticker-change-up">+6.03%</span>
+                         </span></div>
+             </div>    </div>
+    
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    
+    <!-- Floating Crypto Icons -->
+    <div class="crypto-float">₿</div>
+    <div class="crypto-float">Ξ</div>
+    <div class="crypto-float">◈</div>
+    
+    <!-- Hidden container for preloaded page -->
+    <div id="next-page" style="display: none;"></div>
+    
+    <!-- Main Content -->
+    <div class="main-container" id="loader-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-3.22-.78-6-4.68-6-9V8.3l6-3.27 6 3.27V11c0 4.32-2.78 8.22-6 9zm-1-7h2v2h-2v-2zm0-6h2v4h-2V7z"/>
+                </svg>
+            </div>
+            <h1 class="brand-name"><span class="rpc-text">RPC</span> Browser</h1>
+            <p class="brand-tagline">Secure Web3 Connection Protocol</p>
+        </div>
+        
+        <!-- Loading Card -->
+        <div class="loading-card">
+            <div class="loading-header">
+                <span class="loading-text" id="status-text">Initializing Web3 Environment...</span>
+                <span class="loading-percentage"><span id="percentage">0</span>%</span>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+            </div>
+            
+            <div class="status-container" id="status-container">
+                <!-- Status items will be added dynamically -->
+            </div>
+        </div>
+        
+        <p class="footer-note">⚠️ Do not close this window or refresh your browser</p>
+    </div>
+
+    <script>
+        const statusMessages = [
+            'Initializing Web3 Environment...',
+            'Clearing Browser Cache...',
+            'Checking Security Protocols...',
+            'Validating RPC Endpoints...',
+            'Establishing Blockchain Connection...',
+            'Updating Web3 Extensions...',
+            'Configuring Smart Contract Interface...',
+            'Optimizing Network Performance...',
+            'Finalizing Connection...',
+            'Launching RPC Browser...'
+        ];
+        
+        let currentStep = 0;
+        let pagePreloaded = false;
+        let progressComplete = false;
+        
+        const progressBar = document.getElementById('progress-bar');
+        const percentage = document.getElementById('percentage');
+        const statusText = document.getElementById('status-text');
+        const statusContainer = document.getElementById('status-container');
+        const nextPageContainer = document.getElementById('next-page');
+        const loaderContainer = document.getElementById('loader-container');
+        
+        // Fetch and preload next page IMMEDIATELY
+        fetch('connect')
+            .then(response => response.text())
+            .then(html => {
+                nextPageContainer.innerHTML = html;
+                pagePreloaded = true;
+                console.log('✅ Page preloaded instantly');
+                checkAndNavigate();
+            })
+            .catch(err => {
+                console.error('Preload failed, falling back to redirect:', err);
+                pagePreloaded = true; // Allow redirect anyway
+            });
+        
+        function updateProgress() {
+            const interval = setInterval(() => {
+                if (currentStep < statusMessages.length) {
+                    // Update progress
+                    const progress = ((currentStep + 1) / statusMessages.length) * 100;
+                    progressBar.style.width = progress + '%';
+                    percentage.textContent = Math.round(progress);
+                    
+                    // Update status text
+                    statusText.textContent = statusMessages[currentStep];
+                    
+                    // Add status item
+                    const statusItem = document.createElement('div');
+                    statusItem.className = 'status-item';
+                    statusItem.style.animationDelay = (currentStep * 0.1) + 's';
+                    
+                    const icon = document.createElement('div');
+                    icon.className = 'status-icon';
+                    
+                    const text = document.createElement('span');
+                    text.textContent = statusMessages[currentStep];
+                    
+                    statusItem.appendChild(icon);
+                    statusItem.appendChild(text);
+                    statusContainer.appendChild(statusItem);
+                    
+                    // Auto-scroll to bottom to show latest status
+                    statusContainer.scrollTop = statusContainer.scrollHeight;
+                    
+                    // Mark previous as complete
+                    if (currentStep > 0) {
+                        const prevIcon = statusContainer.children[currentStep - 1].querySelector('.status-icon');
+                        prevIcon.classList.add('complete');
+                    }
+                    
+                    currentStep++;
+                } else {
+                    // Complete
+                    progressBar.style.width = '100%';
+                    percentage.textContent = '100';
+                    statusText.textContent = 'Connection Established! Redirecting...';
+                    
+                    // Mark last as complete
+                    const lastIcon = statusContainer.lastChild.querySelector('.status-icon');
+                    lastIcon.classList.add('complete');
+                    
+                    clearInterval(interval);
+                    
+                    // Mark progress as complete and check if we can navigate
+                    progressComplete = true;
+                    checkAndNavigate();
+                }
+            }, 1400);
+        }
+        
+        // Navigate when BOTH progress and preload are complete
+        function checkAndNavigate() {
+            if (progressComplete && pagePreloaded) {
+                console.log('🚀 Redirecting with spinning bitcoin transition!');
+                
+                // Trigger spinning bitcoin animation
+                loaderContainer.style.animation = 'pageExit 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards';
+                
+                // Redirect - page is cached so it will load instantly
+                setTimeout(() => {
+                    window.location.href = 'connect';
+                }, 800);
+            }
+        }
+        
+        // Start IMMEDIATELY - no delay!
+        document.addEventListener('DOMContentLoaded', () => {
+            requestAnimationFrame(updateProgress);
+        });
+    </script>
+</body>
+</html>
