@@ -1,0 +1,207 @@
+
+> app@1.0.0 dev
+> vite --host 0.0.0.0 --port 3000
+
+8:30:17 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+
+  VITE v8.0.10  ready in 150 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://172.20.0.10:3000/
+8:40:25 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+8:40:27 PM [vite] (client) [Unhandled error] ReferenceError: canSend is not defined
+ > Admin src/pages/Admin.jsx:267:13
+    265 |  
+    266 |              {/* Preview of what will be sent */}
+    267 |              {canSend && (
+        |               ^
+    268 |                <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', padding: '14px 16px', marginBott...
+    269 |                  <p style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#14532d', fo...
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+8:40:27 PM [vite] (client) [console.warn] An error occurred in the <Admin> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+8:40:34 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+8:40:35 PM [vite] (client) [Unhandled error] ReferenceError: canSend is not defined
+ > Admin src/pages/Admin.jsx:271:13
+    269 |  
+    270 |              {/* Preview of what will be sent */}
+    271 |              {canSend && (
+        |               ^
+    272 |                <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', padding: '14px 16px', marginBott...
+    273 |                  <p style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#14532d', fo...
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+8:40:35 PM [vite] (client) [console.warn] An error occurred in the <Admin> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+8:41:12 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+8:41:15 PM [vite] (client) [Unhandled error] ReferenceError: canSend is not defined
+ > Admin src/pages/Admin.jsx:271:13
+    269 |  
+    270 |              {/* Preview of what will be sent */}
+    271 |              {canSend && (
+        |               ^
+    272 |                <div style={{ backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', padding: '14px 16px', marginBott...
+    273 |                  <p style={{ fontSize: '9px', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#14532d', fo...
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+8:41:15 PM [vite] (client) [console.warn] An error occurred in the <Admin> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+8:41:20 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+8:41:27 PM [vite] (client) hmr update /src/pages/TrackOrder.jsx, /src/index.css
+8:41:43 PM [vite] (client) hmr update /src/pages/TrackOrder.jsx, /src/index.css
+10:05:23 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+10:05:25 PM [vite] (client) [Unhandled error] ReferenceError: phone is not defined
+ > Admin src/pages/Admin.jsx:84:23
+    82 |  
+    83 |    const cleanId      = orderId.trim().replace(/^#/, '').toUpperCase()
+    84 |    const cleanPhone   = phone.trim().replace(/\D/g, '')
+       |                         ^
+    85 |    const stepIndex    = selectedStep !== null ? STEP_INDEX[STEPS[selectedStep].label] : null
+    86 |    // Permanent link — always the same for this order, never changes
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+10:05:25 PM [vite] (client) [console.warn] An error occurred in the <Admin> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+10:05:27 PM [vite] (client) [Unhandled error] ReferenceError: phone is not defined
+ > Admin src/pages/Admin.jsx:84:23
+    82 |  
+    83 |    const cleanId      = orderId.trim().replace(/^#/, '').toUpperCase()
+    84 |    const cleanPhone   = phone.trim().replace(/\D/g, '')
+       |                         ^
+    85 |    const stepIndex    = selectedStep !== null ? STEP_INDEX[STEPS[selectedStep].label] : null
+    86 |    // Permanent link — always the same for this order, never changes
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+10:05:27 PM [vite] (client) [console.warn] An error occurred in the <Admin> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+10:05:39 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+10:05:41 PM [vite] (client) [Unhandled error] ReferenceError: sent is not defined
+ > Admin src/pages/Admin.jsx:165:10
+    163 |  
+    164 |          {/* Main form */}
+    165 |          {!sent ? (
+        |            ^
+    166 |            <div style={{ backgroundColor: '#fff', border: '1px solid #e0d8d0', padding: '28px' }}>
+    167 |              <p style={{ fontSize: '11px', letterSpacing: '0.3em', textTransform: 'uppercase', color: C.warmGray, marg...
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+10:05:41 PM [vite] (client) [console.warn] An error occurred in the <Admin> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+10:05:41 PM [vite] (client) [Unhandled error] ReferenceError: sent is not defined
+ > Admin src/pages/Admin.jsx:165:10
+    163 |  
+    164 |          {/* Main form */}
+    165 |          {!sent ? (
+        |            ^
+    166 |            <div style={{ backgroundColor: '#fff', border: '1px solid #e0d8d0', padding: '28px' }}>
+    167 |              <p style={{ fontSize: '11px', letterSpacing: '0.3em', textTransform: 'uppercase', color: C.warmGray, marg...
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+10:05:41 PM [vite] (client) [console.warn] An error occurred in the <Admin> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+10:06:55 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+10:07:04 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+10:07:16 PM [vite] (client) hmr update /src/pages/Admin.jsx, /src/index.css
+10:29:15 PM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+10:29:28 PM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+10:35:13 PM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+10:35:20 PM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+10:35:27 PM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+10:35:34 PM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+11:40:24 PM [vite] (client) hmr update /src/pages/ProductDetail.jsx, /src/index.css
+11:40:51 PM [vite] (client) hmr update /src/index.css, /src/components/FeaturedProducts.jsx, /src/components/CartSidebar.jsx, /src/components/CheckoutModal.jsx, /src/components/SearchOverlay.jsx, /src/pages/ProductDetail.jsx, /src/components/ProductCard.jsx
+11:41:08 PM [vite] (client) hmr update /src/index.css, /src/components/ProductCard.jsx
+12:04:16 AM [vite] (client) hmr update /src/index.css, /src/components/FeaturedProducts.jsx, /src/components/CartSidebar.jsx, /src/components/CheckoutModal.jsx, /src/components/SearchOverlay.jsx, /src/pages/ProductDetail.jsx, /src/components/ProductCard.jsx
+12:05:07 AM [vite] (client) hmr update /src/index.css, /src/components/FeaturedProducts.jsx, /src/components/CartSidebar.jsx, /src/components/CheckoutModal.jsx, /src/components/SearchOverlay.jsx, /src/pages/ProductDetail.jsx, /src/components/ProductCard.jsx
+12:05:20 AM [vite] (client) hmr update /src/components/Hero.jsx, /src/index.css
+12:05:25 AM [vite] (client) hmr update /src/components/Hero.jsx, /src/index.css
+12:05:31 AM [vite] (client) hmr update /src/components/Hero.jsx, /src/index.css
+12:05:43 AM [vite] (client) hmr update /src/components/Lookbook.jsx, /src/index.css
+12:05:55 AM [vite] (client) hmr update /src/components/InstagramFeed.jsx, /src/index.css
+12:06:12 AM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+12:10:48 AM [vite] (client) hmr update /src/components/InstagramFeed.jsx, /src/index.css
+12:11:00 AM [vite] (client) hmr update /src/components/Hero.jsx, /src/index.css
+12:11:05 AM [vite] (client) hmr update /src/components/Hero.jsx, /src/index.css
+12:11:15 AM [vite] (client) hmr update /src/components/Hero.jsx, /src/index.css
+12:11:25 AM [vite] (client) hmr update /src/components/Lookbook.jsx, /src/index.css
+12:11:51 AM [vite] (client) hmr update /src/index.css, /src/components/FeaturedProducts.jsx, /src/components/CartSidebar.jsx, /src/components/CheckoutModal.jsx, /src/components/SearchOverlay.jsx, /src/pages/ProductDetail.jsx, /src/components/ProductCard.jsx
+12:12:08 AM [vite] (client) hmr update /src/components/TestimonialSection.jsx, /src/index.css
+12:22:35 AM [vite] (client) hmr update /src/components/Lookbook.jsx, /src/index.css

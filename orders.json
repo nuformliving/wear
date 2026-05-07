@@ -1,0 +1,140 @@
+{
+  "orders": {
+    "TBL-LV54NR": {
+      "id": "TBL-LV54NR",
+      "customer": "",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "items": [],
+      "total": 0,
+      "payMethod": "",
+      "placed": "30 Apr 2026, 22:54",
+      "status": "Dispatched",
+      "steps": [
+        {
+          "label": "Order Placed",
+          "done": true,
+          "date": "30 Apr 2026, 22:54"
+        },
+        {
+          "label": "Payment Confirmed",
+          "done": true,
+          "date": "30 Apr 2026, 22:54"
+        },
+        {
+          "label": "Order Processing",
+          "done": true,
+          "date": "30 Apr 2026, 23:09"
+        },
+        {
+          "label": "Dispatched",
+          "done": true,
+          "date": "30 Apr 2026, 23:09"
+        },
+        {
+          "label": "Out for Delivery",
+          "done": false,
+          "date": "30 Apr 2026, 22:56"
+        },
+        {
+          "label": "Delivered",
+          "done": false,
+          "date": "Pending"
+        }
+      ]
+    },
+    "TBL-LXZU80": {
+      "id": "TBL-LXZU80",
+      "customer": "Oyin Aj",
+      "phone": "09067844123",
+      "email": "oyin098@gmail.com",
+      "address": "12 lils, lekki, lagos",
+      "items": [
+        "The Amara Power Set – Size S ×1"
+      ],
+      "total": 125000,
+      "payMethod": "Bank Transfer",
+      "placed": "30 Apr 2026, 23:12",
+      "status": "Delivered",
+      "steps": [
+        {
+          "label": "Order Placed",
+          "done": true,
+          "date": "30 Apr 2026, 23:12"
+        },
+        {
+          "label": "Payment Confirmed",
+          "done": true,
+          "date": "30 Apr 2026, 23:13"
+        },
+        {
+          "label": "Order Processing",
+          "done": true,
+          "date": "30 Apr 2026, 23:16"
+        },
+        {
+          "label": "Dispatched",
+          "done": true,
+          "date": "30 Apr 2026, 23:16"
+        },
+        {
+          "label": "Out for Delivery",
+          "done": true,
+          "date": "30 Apr 2026, 23:16"
+        },
+        {
+          "label": "Delivered",
+          "done": true,
+          "date": "30 Apr 2026, 23:19"
+        }
+      ]
+    },
+    "TBL-UPWWTQ": {
+      "id": "TBL-UPWWTQ",
+      "customer": "oyin kansola",
+      "phone": "09076866581",
+      "email": "62cn54@gmail.com",
+      "address": "11 fiem, ikoyi, Lagos",
+      "items": [
+        "The Chioma Luxe Maxi – Size S ×1"
+      ],
+      "total": 95000,
+      "payMethod": "Bank Transfer",
+      "placed": "7 May 2026, 00:59",
+      "status": "Order Placed",
+      "steps": [
+        {
+          "label": "Order Placed",
+          "done": true,
+          "date": "7 May 2026, 00:59"
+        },
+        {
+          "label": "Payment Confirmed",
+          "done": false,
+          "date": "Pending confirmation"
+        },
+        {
+          "label": "Order Processing",
+          "done": false,
+          "date": "Pending"
+        },
+        {
+          "label": "Dispatched",
+          "done": false,
+          "date": "Pending"
+        },
+        {
+          "label": "Out for Delivery",
+          "done": false,
+          "date": "Pending"
+        },
+        {
+          "label": "Delivered",
+          "done": false,
+          "date": "Pending"
+        }
+      ]
+    }
+  }
+}

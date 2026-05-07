@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #faf7f4;
+    color: #2c2c2c;
+    margin: 0;
+    padding: 0;
+    /* Prevent body scroll when a modal/overlay is open */
+    overscroll-behavior: none;
+  }
+  html {
+    scroll-behavior: smooth;
+    /* Prevent elastic bounce scroll on iOS causing layout jumps */
+    overscroll-behavior: none;
+  }
+
+  /*
+   * MOBILE STABILITY: Prevent iOS Safari from auto-zooming when
+   * any input or textarea is focused (requires font-size >= 16px).
+   * This single rule covers every input in the entire app.
+   */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+    /* Remove iOS default styling that can cause layout shifts */
+    -webkit-appearance: none;
+    border-radius: 0;
+    /* Prevent tap highlight flash */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Remove tap highlight on buttons/links too */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #faf7f4; }
+::-webkit-scrollbar-thumb { background: #c9a898; }
